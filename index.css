@@ -1,10 +1,18 @@
 body {
+    display: flex;
+    flex-direction: column; /* Keeps items stacked */
+    justify-content: center; /* Center vertically */
+    align-items: center; /* Center horizontally */
+    height: 100vh;
+    margin: 0; /* Remove default margin */
     background-color: #ffc3da;
+    font-family: 'Montserrat', sans-serif;
+
 }
 
 .envelope-wrapper {
-    height: 380px;
-    perspective: 1000px; /* Added for 3D effect */
+    height: 230px;
+    margin-bottom: 100px;
 }
 
 #envelope {
@@ -18,8 +26,6 @@ body {
     top: 50%;
     background-color: #FF6863;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-    transform-style: preserve-3d; /* Added for 3D effect */
-    transition: transform 0.7s ease-in-out; /* Smooth transition for opening */
 }
 
 #envelope:hover {
@@ -39,7 +45,6 @@ body {
     border-right: 140px solid transparent;
     border-bottom: 82px solid transparent;
     transform-origin: top;
-    transition: transform 0.7s ease-in-out, z-index 0s 0.7s; /* Adjusted for smoother animation */
 }
 
 .pocket {
@@ -82,48 +87,51 @@ body {
     color: black;
 }
 
-.line1, .line2, .line3, .line4 {
-    position: absolute;
-    width: 80%;
-    font-size: 15px;
-    font-family: Arial, Helvetica, sans-serif;
-    color: black;
+.line1 {
+    top: 15%;
+}
+.line2 {
+    top: 30%;
+}
+.line3 {
+    top: 50%;
+    text-align: center;
+}
+.line4 {
+    top: 65%;
+    text-align: center;
 }
 
-.line1 { top: 15%; }
-.line2 { top: 30%; }
-.line3 { top: 50%; text-align: center; }
-.line4 { top: 65%; text-align: center; }
-
-/* Updated animation for opening envelope with 3D effect */
 .open .flap {
     transform: rotatex(180deg);
+    transition: transform 0.4s ease, z-index 0.6s;
     z-index: 1;
 }
 
 .close .flap {
     transform: rotatex(0deg);
+    transition: transform 0.4s 0.6s ease, z-index 1s;
     z-index: 5;
 }
 
 .open .letter {
-    transform: translateY(-100%) translateZ(0); /* Adjust the Y-axis movement */
-    transition: transform 0.7s ease-in-out, z-index 0.7s; /* Ensure smooth transition */
-    z-index: 4; /* Ensure letter is above envelope but below hearts */
+    transform: translatey(-80px);
+    transition: transform 0.4s 0.6s ease, z-index 0.6s;
+    z-index: 2;
 }
 
 .close .letter {
-    transform: translatey(0);
+    transform: translatey(0deg);
+    transition: transform 0.4s ease, z-index 1s;
     z-index: 1;
 }
 
 .hearts {
     position: absolute;
-    top: -20px; /* Adjust position so hearts come out correctly */
+    top: 90px;
     left: 0;
     right: 0;
-    z-index: 5; /* Ensure hearts are on top */
-    transition: top 0.7s ease-in-out; /* Smooth transition for hearts movement */
+    z-index: 2;
 }
 
 .heart {
@@ -141,50 +149,85 @@ body {
     left: 50px;
     top: 0;
     border-radius: 50px 50px 0 0;
+    transform: rotate(-45deg);
     transform-origin: 0 100%;
 }
 
 .heart:after {
     left: 0;
+    transform: rotate(45deg);
     transform-origin: 100% 100%;
 }
 
-/* Adjusted for better animation control and visibility */
 .close .heart {
     opacity: 0;
-}
-
-.a1, .a2, .a3 {
-    opacity: 1;
-    animation-fill-mode: forwards;
-    animation-delay: 0.7s;
+    animation: none;
 }
 
 .a1 {
     left: 20%;
-    transform: scale(0.6); /* Adjusted scaling */
-    animation: slideUp 4s linear 1, sideSway 2s ease-in-out 4 alternate;
+    transform: scale(0.8);
+    opacity: .6;
+    animation: slideUp 4s linear 1, sideSway 2s  ease-in-out 4 alternate;
+    animation-fill-mode: forwards;
+    animation-delay: 0.7s;
 }
-
 .a2 {
     left: 55%;
-    transform: scale(1); /* Original scaling */
-    animation: slideUp 5s linear 1, sideSway 4s ease-in-out 2 alternate;
+    transform: scale(1);
+    opacity: 1;
+    animation: slideUp 5s linear 1, sideSway 4s  ease-in-out 2 alternate;
+    animation-fill-mode: forwards;
+    animation-delay: 0.7s;
 }
-
 .a3 {
     left: 10%;
-    transform: scale(0.8); /* Slightly larger */
-    animation: slideUp 7s linear 1, sideSway 2s ease-in-out 6 alternate;
+    transform: scale(0.8);
+    opacity: 1;
+    animation: slideUp 3s linear 1, sideSway 3s  ease-in-out 6 alternate;
+    animation-fill-mode: forwards;
+    animation-delay: 0.7s;
+}
+.a4 {
+    left: 40%;
+    transform: scale(0.9);
+    opacity: .8;
+    animation: slideUp 3s linear 1, sideSway 5s  ease-in-out 3 alternate;
+    animation-fill-mode: forwards;
+    animation-delay: 0.7s;
+}
+.a5 {
+    left: 65%; /* Adjust the starting position to spread the hearts out more evenly */
+    transform: scale(0.85);
+    opacity: 0.75; /* High visibility but not fully opaque */
+    animation: slideUp 6s linear 1, sideSway 6s ease-in-out 7 alternate; /* Longer duration for both animations for a slower, more varied movement */
+    animation-fill-mode: forwards;
+    animation-delay: 0.5s; /* Slightly earlier start */
+}
+.a6 {
+    left: 0%; /* Adjust the starting position to spread the hearts out more evenly */
+    transform: scale(0.95);
+    opacity: 0.65; /* High visibility but not fully opaque */
+    animation: slideUp 6s linear 1, sideSway 4s ease-in-out 5 alternate; /* Longer duration for both animations for a slower, more varied movement */
+    animation-fill-mode: forwards;
+    animation-delay: 0.5s; /* Slightly earlier start */
 }
 
-/* Enhanced sideSway animation for more dynamic movement */
+@keyframes slideUp {
+    0% {
+       top: 0;
+    }
+    100% {
+        top: -600px;
+    }
+}
+
 @keyframes sideSway {
-    0%, 100% {
+    0% {
         margin-left: 0px;
     }
-    50% {
-        margin-left: 20px; /* More pronounced sway */
+    100% {
+        margin-left: 50px;
     }
 }
 
@@ -220,9 +263,8 @@ body {
 
 .valentine {
     text-align: center;
-    font-family: Arial, Helvetica, sans-serif;
-    color: rgb(20, 20, 20);
+    font-family: 'Montserrat', sans-serif;
+    color: #FF6863;
     font-size: 70px;
-    margin: 150px;
+    margin: 20px; /* Adjusted margin */
 }
-
