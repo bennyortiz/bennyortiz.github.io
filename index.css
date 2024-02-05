@@ -2,28 +2,10 @@ body {
     background-color: #ffc3da;
 }
 
-.envelope {
-  transition: transform 1s ease;
-  transform-style: preserve-3d;
-}
-@keyframes openEnvelope {
-  0% { transform: rotateX(0); }
-  100% { transform: rotateX(-180deg); }
-}
-
-
 .envelope-wrapper {
     height: 380px;
+    perspective: 1000px; /* Added for 3D effect */
 }
-
-.heart {
-  animation: float 5s ease-in-out infinite;
-}
-@keyframes float {
-  0%, 100% { transform: translateY(0) scale(1); opacity: 1; }
-  50% { transform: translateY(-50px) scale(1.5); opacity: .5; }
-}
-
 
 #envelope {
     position: relative;
@@ -36,6 +18,8 @@ body {
     top: 50%;
     background-color: #FF6863;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    transform-style: preserve-3d; /* Added for 3D effect */
+    transition: transform 0.7s ease-in-out; /* Smooth transition for opening */
 }
 
 #envelope:hover {
@@ -55,6 +39,7 @@ body {
     border-right: 140px solid transparent;
     border-bottom: 82px solid transparent;
     transform-origin: top;
+    transition: transform 0.7s ease-in-out, z-index 0s 0.7s; /* Adjusted for smoother animation */
 }
 
 .pocket {
@@ -97,42 +82,37 @@ body {
     color: black;
 }
 
-.line1 {
-    top: 15%;
-}
-.line2 {
-    top: 30%;
-}
-.line3 {
-    top: 50%;
-    text-align: center;
-}
-.line4 {
-    top: 65%;
-    text-align: center;
+.line1, .line2, .line3, .line4 {
+    position: absolute;
+    width: 80%;
+    font-size: 15px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: black;
 }
 
+.line1 { top: 15%; }
+.line2 { top: 30%; }
+.line3 { top: 50%; text-align: center; }
+.line4 { top: 65%; text-align: center; }
+
+/* Updated animation for opening envelope with 3D effect */
 .open .flap {
     transform: rotatex(180deg);
-    transition: transform 0.4s ease, z-index 0.6s;
     z-index: 1;
 }
 
 .close .flap {
     transform: rotatex(0deg);
-    transition: transform 0.4s 0.6s ease, z-index 1s;
     z-index: 5;
 }
 
 .open .letter {
     transform: translatey(-80px);
-    transition: transform 0.4s 0.6s ease, z-index 0.6s;
     z-index: 2;
 }
 
 .close .letter {
-    transform: translatey(0deg);
-    transition: transform 0.4s ease, z-index 1s;
+    transform: translatey(0);
     z-index: 1;
 }
 
@@ -159,61 +139,50 @@ body {
     left: 50px;
     top: 0;
     border-radius: 50px 50px 0 0;
-    transform: rotate(-45deg);
     transform-origin: 0 100%;
 }
 
 .heart:after {
     left: 0;
-    transform: rotate(45deg);
     transform-origin: 100% 100%;
 }
 
+/* Adjusted for better animation control and visibility */
 .close .heart {
     opacity: 0;
-    animation: none;
+}
+
+.a1, .a2, .a3 {
+    opacity: 1;
+    animation-fill-mode: forwards;
+    animation-delay: 0.7s;
 }
 
 .a1 {
     left: 20%;
-    transform: scale(0.6);
-    opacity: 1;
-    animation: slideUp 4s linear 1, sideSway 2s  ease-in-out 4 alternate;
-    animation-fill-mode: forwards;
-    animation-delay: 0.7s;
+    transform: scale(0.6); /* Adjusted scaling */
+    animation: slideUp 4s linear 1, sideSway 2s ease-in-out 4 alternate;
 }
+
 .a2 {
     left: 55%;
-    transform: scale(1);
-    opacity: 1;
-    animation: slideUp 5s linear 1, sideSway 4s  ease-in-out 2 alternate;
-    animation-fill-mode: forwards;
-    animation-delay: 0.7s;
+    transform: scale(1); /* Original scaling */
+    animation: slideUp 5s linear 1, sideSway 4s ease-in-out 2 alternate;
 }
+
 .a3 {
     left: 10%;
-    transform: scale(0.8);
-    opacity: 1;
-    animation: slideUp 7s linear 1, sideSway 2s  ease-in-out 6 alternate;
-    animation-fill-mode: forwards;
-    animation-delay: 0.7s;
+    transform: scale(0.8); /* Slightly larger */
+    animation: slideUp 7s linear 1, sideSway 2s ease-in-out 6 alternate;
 }
 
-@keyframes slideUp {
-    0% {
-       top: 0;
-    }
-    100% {
-        top: -600px;
-    }
-}
-
+/* Enhanced sideSway animation for more dynamic movement */
 @keyframes sideSway {
-    0% {
+    0%, 100% {
         margin-left: 0px;
     }
-    100% {
-        margin-left: 50px;
+    50% {
+        margin-left: 20px; /* More pronounced sway */
     }
 }
 
@@ -250,7 +219,8 @@ body {
 .valentine {
     text-align: center;
     font-family: Arial, Helvetica, sans-serif;
-    color:rgb(20, 20, 20);
+    color: rgb(20, 20, 20);
     font-size: 70px;
     margin: 150px;
 }
+
