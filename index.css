@@ -107,8 +107,9 @@ body {
 }
 
 .open .letter {
-    transform: translatey(-80px);
-    z-index: 2;
+    transform: translateY(-100%) translateZ(0); /* Adjust the Y-axis movement */
+    transition: transform 0.7s ease-in-out, z-index 0.7s; /* Ensure smooth transition */
+    z-index: 4; /* Ensure letter is above envelope but below hearts */
 }
 
 .close .letter {
@@ -118,10 +119,11 @@ body {
 
 .hearts {
     position: absolute;
-    top: 90px;
+    top: -20px; /* Adjust position so hearts come out correctly */
     left: 0;
     right: 0;
-    z-index: 2;
+    z-index: 5; /* Ensure hearts are on top */
+    transition: top 0.7s ease-in-out; /* Smooth transition for hearts movement */
 }
 
 .heart {
